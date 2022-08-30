@@ -1,0 +1,105 @@
+﻿@model IEnumerable<SMS.Asignaciones.Frontend.Models.HorasViewModel>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-3" id="margin-card">
+            <div class="card sombra-instructivo @(item.HorasPendientes <= 0 ? "bg-success" : "")">
+                <div class="avatar-container">
+                    @{
+                        var base64 = Convert.ToBase64String(item.Foto);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+
+                    <img class="avatar-horas" src="@imgSrc" />
+                </div>
+
+                <b>@item.NombreColaborador</b>
+                @item.Legajo
+                <div class="badge badge-light">@item.Equipo @(!string.IsNullOrEmpty(item.SubEquipo) ? " / " + item.SubEquipo : "")  </div>
+
+                @{ if (item.TipoRegistro.Contains("SMS"))
+                    {
+                        <span class='badge bg-danger text-white'>
+                            @item.TipoRegistro
+                            @{ if (item.Lider)
+                                { <i class="fa fa-star text-warning" data-toggle="tooltip" data-placement="top" title="Líder"></i> } }
+                            @{ if (item.LiderSubEquipo)
+                                { <i class="fa fa-star-half-o text-warning" data-toggle="tooltip" data-placement="top" title="Líder de un Sub Equipo"></i> } }
+                        </span>
+                                }
+                                else if (item.TipoRegistro.Contains("Mono"))
+                                {
+                        <span class='badge bg-warning text-dark'>
+                            @item.TipoRegistro
+                            @{ if (item.Lider)
+                                { <i class="fa fa-star text-dark" data-toggle="tooltip" data-placement="top" title="Líder"></i> } }
+                            @{ if (item.LiderSubEquipo)
+                                { <i class="fa fa-star-half-o text-dark" data-toggle="tooltip" data-placement="top" title="Líder de un Sub Equipo"></i> } }
+                        </span>
+                                }
+                                else
+                                {
+                        <span class='badge bg-info text-dark'>
+                            @item.TipoRegistro
+                            @{ if (item.Lider)
+                                { <i class="fa fa-star text-dark" data-toggle="tooltip" data-placement="top" title="Líder"></i> } }
+                            @{ if (item.LiderSubEquipo)
+                                { <i class="fa fa-star-half-o text-dark" data-toggle="tooltip" data-placement="top" title="Líder de un Sub Equipo"></i> } }
+                        </span>
+                                }
+
+                }
+
+                <span class="text-dark" style="text-align:left; padding-left:5px; font-size:11px;">
+                    <i class="fa fa-clock-o text-danger"></i> Horas mes: @{ if (!item.HorasVariables)
+                        { <b> @item.HorasMes</b> }
+                        else { <span class='badge bg-info text-white'>Variable</span> } }
+                    </span>
+                <span class="text-dark" style="text-align: left; padding-left: 5px; font-size: 11px;">
+                    <i class="fa fa-clock-o text-info"></i> Horas Cargadas: <b> @item.HorasCargadas</b>
+                </span>
+                <span class="text-dark" style="text-align: left; padding-left: 5px; font-size: 11px;">
+                    <i class="fa fa-clock-o text-dark"></i> Horas Pendientes: @{ if (!item.HorasVariables)
+                        {
+                            <b>@(item.HorasPendientes > 0 ? item.HorasPendientes : 0)</b>
+                        }
+                        else
+                        {
+                            <span class='badge bg-info text-white'>Variable</span>
+                        } }
+                </span>
+                <span class="text-dark" style="text-align: left; padding-left: 5px; font-size: 11px;">
+                    <i class="fa fa-clock-o text-dark"></i> Horas Extra:  <b>@item.HorasExtra</b>
+                </span>
+                <span class="text-dark" style="text-align: left; padding-left: 5px; font-size: 11px;">
+                    <i class="fa fa-clock-o text-dark"></i> D&iacute;as Licencia:  <b>@item.DiasLicencia</b>
+                </span>
+
+                <div class="btn-group" role="group" aria-label="acciones">
+                    <button class="btn btn-light btn-sm" onclick="showInPopup('@Url.Action("_VerCarga","Hora",new {colaboradorId=@item.ColaboradorId, anio=@item.Anio, mes= @item.Mes, colaboradorIdSeleccionado=item.ColaboradorIdSeleccionado},Context.Request.Scheme)','Horas Asignadas','Nombre')">
+                        <i class="fa fa-eye text-dark"></i> Ver
+                    </button>
+
+                    @if (item.HorasPendientes <= 0 && !item.HorasVariables)
+                    {
+                        <span class="badge badge-success">
+                            <i class="fa fa-smile-o fa-2x bg-success text-white"></i> Cargado
+                        </span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-light btn-sm @(item.HorasPendientes == 0 ? "ocultar" : "")" onclick="showInPopup('@Url.Action("_CargaHoras","Hora",new {colaboradorId=@item.ColaboradorId, anio=@item.Anio, mes= item.Mes, colaboradorIdSeleccionado=item.ColaboradorIdSeleccionado},Context.Request.Scheme)','Cargar Horas','ProyectoId')">
+                            <i class="fa fa-calendar-check-o text-dark"></i> Cargar
+                        </button>
+                    }
+
+
+                </div>
+
+
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,183 @@
+﻿@model SMS.Asignaciones.Frontend.Models.DashboardViewModel
+
+<div class="grey-bg container-fluid">
+
+    <br />
+
+    <button class="btn btn-light btn-sm pull-right" onclick="showInPopup('@Url.Action("_ModificaDatos","Home")')">
+        <i class="fa fa-user-circle text-dark"></i> Modificar Datos
+    </button>
+
+    <br />
+
+
+    <section id="minimal-statistics">
+        <div class="row">
+            <div class="col-12 mt-3 mb-1">
+                <h4 class="text-uppercase">Informaci&oacute;n general</h4>
+                <p>Datos actualizados al mes en curso.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-calendar fa-2x text-danger font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.MesActual</h3>
+                                    <span>Mes actual</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-briefcase fa-2x text-warning font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.DiasLaborales</h3>
+                                    <span>D&iacute;as laborales</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-globe fa-2x text-primary font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.Feriados</h3>
+                                    <span>Feriados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-clock-o fa-2x text-success font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.HorasMes</h3>
+                                    <span>Horas mes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <br />
+
+    <section id="stats-subtitle">
+        <div class="row">
+            <div class="col-12 mt-3 mb-1">
+                <h4 class="text-uppercase">Informaci&oacute;n personalizada</h4>
+                <p>Informaci&oacute;n particular del usuario.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-user fa-2x text-danger font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.Equipo</h3>
+                                    <span>Miembro del Equipo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-shield fa-2x text-warning font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.Rol</h3>
+                                    <span>Rol</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!User.IsInRole("Colaborador"))
+            {
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card sombra-instructivo">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="align-self-center">
+                                        <i class="fa fa-group fa-2x text-primary font-large-2 float-left"></i>
+                                    </div>
+                                    <div class="media-body text-right">
+                                        <h3>@Model.Colaboradores</h3>
+                                        <span>Colaboradores</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card sombra-instructivo">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fa fa-clock-o fa-2x text-success font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>@Model.HorasPendientesCarga Hs</h3>
+                                    <span>Faltan cargar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+</div>

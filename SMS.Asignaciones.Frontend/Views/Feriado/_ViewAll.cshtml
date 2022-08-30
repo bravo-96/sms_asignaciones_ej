@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SMS.Asignaciones.Models.Feriado>
+
+
+<div class="sombra-instructivo2">
+    <table id="tFeriados" class="table table-bordered table-dark table-sm table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th style="width:100px;">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Motivo)
+                </th>
+                <th style="width:120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="vertical-align: middle;">
+                    @item.Fecha.ToShortDateString()
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Motivo)
+                </td>
+
+                <td style="text-align:center;">
+                    <a style="cursor:pointer;" onclick="showInPopup('@Url.Action("_CreateOrEdit","Feriado",new {id=@item.Id},Context.Request.Scheme)','Modificar','Motivo')" class="btn btn-sm btn-light text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar"><i class="fa fa-pencil text-dark"></i></a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                            <i class="fa fa-trash text-white"></i>
+                        </button>
+                    </form>
+                </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+        $("#tFeriados").DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando  _END_ / _TOTAL_ registros",
+                "sInfoEmpty": "Sin datos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+            "pagingType": "numbers"
+        });
+
+
+
+    });
+</script>

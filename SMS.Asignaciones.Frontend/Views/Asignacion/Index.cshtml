@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="header-instructivo bg-light sombra-instructivo">
+            <i class="fa fa-circle text-danger"></i> <strong>Asignaciones</strong>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="mb-2">
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label class="control-label"> A&ntilde;o</label>
+                    <select id="listaAnios" class="form-control form-control-sm" asp-items="ViewBag.AnioActualId"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="control-label">Mes</label>
+                    <select id="listaMeses" class="form-control form-control-sm" asp-items="ViewBag.MesActualId"></select>
+                </div>
+
+                <div class="col-sm-2">
+                    <label class="control-label">Proovedor</label>
+                    <select id="listaProveedor" class="form-control form-control-sm" asp-items="ViewBag.ProveedorId"></select>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="control-label">Proyecto</label>
+                    <select id="listaProyecto" class="form-control form-control-sm" asp-items="ViewBag.ProyectoId"></select>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">Equipo</label>
+                    <select id="listaEquipo" class="form-control form-control-sm" asp-items="ViewBag.EquipoId"></select>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-all">
+        </div>
+
+        <button class="btn btn-success btn-sm" id="btnExportar">
+            <i class="fa fa-file-excel-o text-white"></i> Exportar
+        </button>
+
+    </div>
+</div>
+
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            var anio = $('#listaAnios option:selected').val();
+            var mes = $('#listaMeses option:selected').val();
+            var proveedorId = $('#listaProveedor option:selected').val();
+            var proyectoId = $('#listaProyecto option:selected').val();
+            var equipoId = $('#listaEquipo option:selected').val();
+
+
+            $('#view-all').load('@Url.Action("_ViewAll", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId);
+
+
+            $('#btnExportar').click(function () {
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var proveedorId = $('#listaProveedor option:selected').val();
+                var proyectoId = $('#listaProyecto option:selected').val();
+                var equipoId = $('#listaEquipo option:selected').val();
+
+                window.location.href = '/Asignacion/Excel?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId;
+
+               // @Url.Action("Excel", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId';
+            });
+
+            $('#listaAnios').on('change', function () {
+                var anio = $('#listaAnios option:selected').val();
+                $.ajax({
+                    type: 'POST',
+                    data: { anio: anio },
+                    url: '@Url.Action("CargarMeses", "Asignacion")',
+                    dataType: "json",
+                    success: function (result) {
+                        $('#listaMeses').html('');
+                        var items;
+                        for (var i = 0; i < result.length; i++) {
+                            items += '<option value="' + result[i].id + '">' + result[i].valor + '</option>'
+                        }
+                        $('#listaMeses').html(items);
+
+                            var anio = $('#listaAnios option:selected').val();
+                            var mes = $('#listaMeses option:selected').val();
+                            var proveedorId = $('#listaProveedor option:selected').val();
+                            var proyectoId = $('#listaProyecto option:selected').val();
+                            var equipoId = $('#listaEquipo option:selected').val();
+
+                            $('#view-all').load('@Url.Action("_ViewAll", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId);
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
+            });
+
+            $('#listaMeses').on('change', function () {
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var proveedorId = $('#listaProveedor option:selected').val();
+                var proyectoId = $('#listaProyecto option:selected').val();
+                var equipoId = $('#listaEquipo option:selected').val();
+
+                $('#view-all').load('@Url.Action("_ViewAll", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId);
+            });
+
+            $('#listaProveedor').on('change', function () {
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var proveedorId = $('#listaProveedor option:selected').val();
+                var proyectoId = $('#listaProyecto option:selected').val();
+                var equipoId = $('#listaEquipo option:selected').val();
+
+                $('#view-all').load('@Url.Action("_ViewAll", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId);
+            });
+
+            $('#listaProyecto').on('change', function () {
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var proveedorId = $('#listaProveedor option:selected').val();
+                var proyectoId = $('#listaProyecto option:selected').val();
+                var equipoId = $('#listaEquipo option:selected').val();
+
+                $('#view-all').load('@Url.Action("_ViewAll", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId);
+            });
+
+            $('#listaEquipo').on('change', function () {
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var proveedorId = $('#listaProveedor option:selected').val();
+                var proyectoId = $('#listaProyecto option:selected').val();
+                var equipoId = $('#listaEquipo option:selected').val();
+
+                $('#view-all').load('@Url.Action("_ViewAll", "Asignacion")?anio=' + anio + '&mes=' + mes + '&proveedorId=' + proveedorId + '&proyectoId=' + proyectoId + '&equipoId=' + equipoId);
+            });
+
+        });
+
+    </script>
+
+}

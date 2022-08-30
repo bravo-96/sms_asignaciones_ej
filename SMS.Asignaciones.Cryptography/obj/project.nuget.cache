@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ojJ6VuJcMKhPF/OfRTZ7i/FpGA+LZI2cyZDoSONKUEFafppdEGz3iwr+0fnUEq+YTcMddO8gzE6Yk4i79OMCMQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\josePC\\Desktop\\SMS.Asignaciones\\SMS.Asignaciones.Cryptography\\SMS.Asignaciones.Cryptography.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\josePC\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

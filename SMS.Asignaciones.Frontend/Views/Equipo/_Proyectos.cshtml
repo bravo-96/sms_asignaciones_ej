@@ -1,0 +1,74 @@
+﻿@model SMS.Asignaciones.Frontend.Models.ProyectosViewModel
+
+@{
+    int pos = 0;
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="header-instructivo bg-light sombra-instructivo">
+            <i class="fa fa-circle text-danger"></i> <strong>Proyectos > </strong> @Model.SubEquipo
+        </div>
+    </div>
+</div>
+
+
+<br />
+
+<div class="sombra-instructivo2">
+    <table id="tProyectos" class="table table-bordered table-dark table-sm table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th style="width: 30px; text-align: center;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Proyectos)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Proyecto.Nombre)
+                    </td>
+
+                    <td style="text-align:center;">
+                        <input onclick="HabilitaProyecto(this, @item.Id )" class="form-check-input" asp-for="@item.Habilitado" type="checkbox" value="" id="chk_proyecto_@pos">
+                    </td>
+
+
+                </tr>
+
+                pos++;
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+        $("#tProyectos").DataTable({
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+
+            "language": {
+                "sProcessing": "Procesando...",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfoEmpty": "Sin datos",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+            }
+
+        });
+
+
+
+    });
+</script>

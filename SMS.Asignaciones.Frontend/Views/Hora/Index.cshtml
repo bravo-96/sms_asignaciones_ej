@@ -1,0 +1,194 @@
+﻿@model SMS.Asignaciones.Frontend.Models.CargaHabilitadaViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="header-instructivo bg-light sombra-instructivo">
+            <i class="fa fa-circle text-danger"></i> <strong>Carga de Horas</strong>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+
+    @if (Model.Habilitada)
+    {
+        <div class="col-lg-12">
+
+            <div class="mb-2">
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <label class="control-label"> A&ntilde;o</label>
+                        <select id="listaAnios" class="form-control form-control" asp-items="ViewBag.AnioActualId"></select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label">Mes</label>
+                        <select id="listaMeses" class="form-control form-control" asp-items="ViewBag.MesActualId"></select>
+                    </div>
+                    <div class="col-sm-6">
+                        @*<label class="control-label">Colaborador</label>
+                        <input type="text" class="form-control" id="Nombre" name="Nombre" />
+                        <input id="colaboradorId" type="hidden" />*@
+
+                        <label class="control-label">Colaborador</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="Nombre" name="Nombre">
+                            <button type="button" id="btnFilterClear" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        <input id="colaboradorId" type="hidden" />
+
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="mb-2">
+                    <a onclick="showInPopup('@Url.Action("_CreateOrEdit","Hora",new {id=0},Context.Request.Scheme)','Nuevo','Nombre')" class="btn btn-sm btn-danger text-white">
+                        <i class="fa fa-plus text-white"></i> Nuevo
+                    </a>
+                </div>*@
+
+            <div id="view-all">
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-12">
+           <div class="alert alert-light">
+               <i class="fa fa-warning text-danger"></i> No hay carga de horas habilitada
+           </div>
+        </div>
+    }
+
+
+</div>
+
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            var anio = $('#listaAnios option:selected').val();
+            var mes = $('#listaMeses option:selected').val();
+
+            cargarMeses();
+
+            $("#btnFilterClear").click(function () {
+                $("#Nombre").val('');
+                $('#colaboradorId').val(0);
+
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var colaboradorId = $('#colaboradorId').val();
+
+                $('#view-all').load('@Url.Action("_ViewAll", "Hora")?anio=' + anio + '&mes=' + mes + '&colaboradorId=' + colaboradorId);
+
+            });
+
+            $('#listaAnios').on('change', function () {
+                cargarMeses();
+            });
+
+            $('#listaMeses').on('change', function () {
+                var anio = $('#listaAnios option:selected').val();
+                var mes = $('#listaMeses option:selected').val();
+                var colaboradorId = $('#colaboradorId').val();
+
+                $('#view-all').load('@Url.Action("_ViewAll", "Hora")?anio=' + anio + '&mes=' + mes + '&colaboradorId=' + colaboradorId);
+            });
+
+            function cargarMeses() {
+                var anio = $('#listaAnios option:selected').val();
+                $.ajax({
+                    type: 'POST',
+                    data: { anio: anio },
+                    url: '@Url.Action("CargarMeses","Hora")',
+                    dataType: "json",
+                    success: function (result) {
+                        $('#listaMeses').html('');
+                        var items;
+                        for (var i = 0; i < result.length; i++) {
+                            items += '<option value="' + result[i].id + '">' + result[i].valor + '</option>'
+                        }
+                        $('#listaMeses').html(items);
+
+                            var anio = $('#listaAnios option:selected').val();
+                            var mes = $('#listaMeses option:selected').val();
+                            var colaboradorId = $('#colaboradorId').val();
+
+                        $('#view-all').load('@Url.Action("_ViewAll", "Hora")?anio=' + anio + '&mes=' + mes + '&colaboradorId=' + colaboradorId);
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
+            };
+
+            $("#Nombre").autocomplete({
+                source: function (request, response) {
+
+                    var anio = $('#listaAnios option:selected').val();
+                    var mes = $('#listaMeses option:selected').val();
+
+                    $.ajax({
+                        url: "/Hora/SearchColaborador",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term, Anio: anio, Mes: mes },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                console.log("item=", item);
+                                // return { label: item.nombre, value: item.nombre };
+                                ////return item;
+                                return {
+                                    value: item.nombre,
+                                    id: item.id,
+                                    label: item.nombre
+                                }
+                            }))
+
+                        },
+                        error: function (xhr, textStatus, error) {
+                            alert(xhr.statusText);
+                        },
+                        failure: function (response) {
+                            alert("failure " + response.responseText);
+                        }
+                    })
+                },
+                select: function (event, ui) {
+                    $('#colaboradorId').val(ui.item.id);
+
+                    var anio = $('#listaAnios option:selected').val();
+                    var mes = $('#listaMeses option:selected').val();
+                    var colaboradorId = $('#colaboradorId').val();
+
+                    $('#view-all').load('@Url.Action("_ViewAll", "Hora")?anio=' + anio + '&mes=' + mes + '&colaboradorId=' + colaboradorId);
+
+                    //return false;
+                },
+                messages: {
+                    noResults: "",
+                    results: function (resultsCount) { }
+                },
+                minLength: 1,
+                dataType: "json"
+            });
+
+        });
+
+    </script>
+
+}

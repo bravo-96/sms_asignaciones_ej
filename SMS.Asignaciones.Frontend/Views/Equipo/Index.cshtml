@@ -1,0 +1,99 @@
+﻿@model IList<SMS.Asignaciones.Models.Equipo>
+@using SMS.Asignaciones.Models
+@{
+    Layout = "_Layout";
+}
+
+<br />
+
+
+<div class="row">
+
+
+
+
+    <div class="col-lg-4">
+        <div id="view-all">
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+
+        <div id="_SubEquipos">
+            @* @await Html.PartialAsync("_SubEquipos", new List<SubEquipo>() { } )*@
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div id="_Proyectos">
+            @* @await Html.PartialAsync("_SubEquipos", new List<SubEquipo>() { } )*@
+        </div>
+
+    </div>
+
+
+</div>
+
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            $('#view-all').load('@Url.Action("_ViewAll", "Equipo")');
+        });
+
+        function VerSubEquipos(id) {
+
+            $("#_SubEquipos").load('@Url.Content("/Equipo/SubEquipos/")' + id, function () {
+            });
+
+            $(".equipo-row-" + id).addClass('table-danger').siblings().removeClass('table-danger');
+            $(".equipo-row-" + id).addClass('text-dark').siblings().removeClass('text-dark');
+            $("#_Proyectos").html('');
+
+            //VerAcciones(0, 0);
+        }
+
+        function VerProyectos(id) {
+
+            $("#_Proyectos").load('@Url.Content("/Equipo/Proyectos/")' + id, function () {
+            });
+
+            $(".subequipo-row-" + id).addClass('table-danger').siblings().removeClass('table-danger');
+            $(".subequipo-row-" + id).addClass('text-dark').siblings().removeClass('text-dark');
+            //$("#_PerfilAcciones").html('');
+
+            //VerAcciones(0, 0);
+        }
+
+        function HabilitaProyecto(checkbox, id) {
+
+            var checked = false;
+            if ($("#" + checkbox.id).is(':checked')) {
+                checked = true;
+            }
+
+            try {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Equipo/HabilitarProyecto?id=' + id +'&checkedState=' + checked,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                    },
+                    error: function (err) {
+                        alertify.error('Error al actualizar el registro');
+                    }
+                })
+            } catch (ex) {
+                console.log(ex)
+            }
+        }
+
+
+    </script>
+
+}

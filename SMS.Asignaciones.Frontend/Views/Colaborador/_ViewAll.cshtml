@@ -1,0 +1,133 @@
+﻿@model IEnumerable<SMS.Asignaciones.Models.Colaborador>
+
+
+<div class="sombra-instructivo2">
+    <table id="tColaboradores" class="table table-bordered table-dark table-sm table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th style="width:30px;">
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreCompleto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Legajo)
+                </th>
+                <th>
+                    Lider
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Equipo)
+                </th>
+                <th>
+                    Tipo Contrato
+                </th>
+                <th style="width:120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="vertical-align: middle; text-align:center;">
+                    @{
+                        var base64 = Convert.ToBase64String(item.Foto);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+
+                    <img class="avatar-grid" src="@imgSrc" />
+
+                </td>
+
+
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Legajo)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.NombreLider)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Equipo.Nombre)
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    @{ if (item.Proveedor.Nombre.Contains("SMS"))
+                        {
+                            <span class='badge bg-danger text-white'>@item.Proveedor.Nombre</span>
+                        }
+                        else if (item.Proveedor.Nombre.Contains("Mono"))
+                        {
+                            <span class='badge bg-warning text-dark'>@item.Proveedor.Nombre</span>
+                        }
+                        else
+                        {
+                            <span class='badge bg-info text-dark'>@item.Proveedor.Nombre</span>
+                        }
+
+                    }
+                </td>
+
+                <td style="text-align:center;">
+                    <a style="cursor:pointer;" onclick="showInPopupLg('@Url.Action("_CreateOrEdit","Colaborador",new {id=@item.Id},Context.Request.Scheme)','Modificar','Legajo')" class="btn btn-sm btn-light text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar"><i class="fa fa-pencil text-dark"></i></a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                            <i class="fa fa-trash text-white"></i>
+                        </button>
+                    </form>
+
+                    <form asp-action="ResetPassword" asp-route-id="@item.Id" onsubmit="return jQueryAjaxResetPassword(this)" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-light text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Password">
+                            <i class="fa fa-key text-dark"></i>
+                        </button>
+                    </form>
+
+                </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+        $("#tColaboradores").DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando  _END_ / _TOTAL_ registros",
+                "sInfoEmpty": "Sin datos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+            "pagingType": "numbers"
+        });
+
+
+
+    });
+</script>

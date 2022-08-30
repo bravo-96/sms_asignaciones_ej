@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SMS.Asignaciones.Models.Periodo>
+
+
+<div class="sombra-instructivo2">
+    <table id="tPeiodos" class="table table-bordered table-dark table-sm table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th style="width:100px;">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Anio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Mes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Habilitado)
+                </th>
+                <th style="width:120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="vertical-align: middle;">
+                    @item.Anio
+                </td>
+                <td style="vertical-align: middle;">
+                    @item.MesTexto
+                </td>
+                <td style="vertical-align: middle;">
+
+                    @if (item.Habilitado)
+                    {
+                        <span class='badge bg-success'>HABILITADO</span>
+                    }
+                    else
+                    {
+                        <span class='badge bg-danger'>DESHABILITADO</span>
+                    }
+
+                </td>
+
+                <td style="text-align:center;">
+                    <a style="cursor:pointer;" onclick="showInPopup('@Url.Action("_CreateOrEdit","Periodo",new {id=@item.Id},Context.Request.Scheme)','Modificar Período','Anio')" class="btn btn-sm btn-light text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar"><i class="fa fa-pencil text-dark"></i></a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                            <i class="fa fa-trash text-white"></i>
+                        </button>
+                    </form>
+                </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+        $("#tPeiodos").DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando  _END_ / _TOTAL_ registros",
+                "sInfoEmpty": "Sin datos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+            "pagingType": "numbers"
+        });
+
+
+
+    });
+</script>

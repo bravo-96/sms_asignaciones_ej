@@ -1,0 +1,153 @@
+﻿@model IEnumerable<SMS.Asignaciones.Frontend.Models.PendientesViewModel>
+
+
+<div class="sombra-instructivo2">
+    <table id="tPendientes" class="table table-bordered table-dark table-sm table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th>
+                    A&ntilde;o
+                </th>
+                <th>
+                    Mes
+                </th>
+                <th>
+                    Nombre completo
+                </th>
+                <th>
+                    Legajo
+                </th>
+                <th>
+                    Hs. Mes
+                </th>
+                <th>
+                    Hs. Cargadas
+                </th>
+                <th>
+                    Hs. Extra
+                </th>
+                <th>
+                    Restantes
+                </th>
+                <th>
+                    Estado
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="vertical-align: middle; text-align: center;">
+                    @Html.DisplayFor(modelItem => item.Anio)
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    @Html.DisplayFor(modelItem => item.Mes)
+                </td>
+
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    @Html.DisplayFor(modelItem => item.Legajo)
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    @{ if (!item.CargaLibre)
+                        {
+                            @Html.DisplayFor(modelItem => item.HorasMes)
+                        }
+                        else
+                        {
+                            <span class='badge bg-success text-white'>Sin L&iacute;mite</span>
+                        } }
+                </td>
+
+                <td style="vertical-align: middle; text-align: center;">
+                    @Html.DisplayFor(modelItem => item.HorasNormalesCargadas)
+                </td>
+
+                <td style="vertical-align: middle; text-align:center;">
+                    @Html.DisplayFor(modelItem => item.HorasExtraCargadas)
+                </td>
+                <td style="vertical-align: middle; text-align:center;">
+                    @{ if (!item.CargaLibre)
+                        {
+                            @Html.DisplayFor(modelItem => item.HorasRestantes)
+                        }
+                        else
+                        {
+                            <span class='badge bg-success text-white'>Sin L&iacute;mite</span>
+                        } }
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    @{ if (item.EstadoCarga.Contains("FINALIZADA"))
+                        {
+                            <span class='badge bg-success text-white'>@item.EstadoCarga</span>
+                        }
+                        else if (item.EstadoCarga.Contains("PARCIAL"))
+                        {
+                            <span class='badge bg-warning text-dark'>@item.EstadoCarga</span>
+                        }
+                        else
+                        {
+
+                            if (!item.CargaLibre)
+                            {
+                                <span class='badge bg-danger text-white'>@item.EstadoCarga</span>
+                            }
+                            else
+                            {
+                                <span class='badge bg-success text-white'>LIBRE</span>
+                            }
+
+                        }
+
+                    }
+
+                </td>
+
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+        $("#tPendientes").DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando  _END_ / _TOTAL_ registros",
+                "sInfoEmpty": "Sin datos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+            "pagingType": "numbers"
+        });
+
+
+
+    });
+</script>

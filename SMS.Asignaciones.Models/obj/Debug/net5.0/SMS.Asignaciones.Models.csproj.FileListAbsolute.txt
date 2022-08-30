@@ -1,0 +1,15 @@
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\bin\Debug\net5.0\SMS.Asignaciones.Models.deps.json
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\bin\Debug\net5.0\SMS.Asignaciones.Models.runtimeconfig.json
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\bin\Debug\net5.0\SMS.Asignaciones.Models.runtimeconfig.dev.json
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\bin\Debug\net5.0\SMS.Asignaciones.Models.dll
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\bin\Debug\net5.0\ref\SMS.Asignaciones.Models.dll
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\bin\Debug\net5.0\SMS.Asignaciones.Models.pdb
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.csproj.AssemblyReference.cache
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.AssemblyInfoInputs.cache
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.AssemblyInfo.cs
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.csproj.CoreCompileInputs.cache
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.dll
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\ref\SMS.Asignaciones.Models.dll
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.pdb
+C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Models\obj\Debug\net5.0\SMS.Asignaciones.Models.genruntimeconfig.cache

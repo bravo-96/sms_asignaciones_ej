@@ -1,0 +1,48 @@
+﻿@model SMS.Asignaciones.Frontend.Models.LoginMessageViewModel
+@{
+    Layout = "_LayoutLogin";
+}
+
+
+
+<form method="post">
+
+    @*<input type="text" name="email" class="form-control input-sm chat-input" placeholder="Email" />
+
+    <input type="password"  name="password" class="form-control input-sm chat-input" placeholder="Password" />
+    <button type="submit" class="btn btn-danger btn-md"> login</button>*@
+
+    <div class="col col-lg-5 col-md-5 col-sm-5">
+        <div class="form-login">
+            <h4>SMS Asignaciones</h4>
+            <input type="text" name="email" class="form-control input-sm chat-input" placeholder="Email" />
+            </br>
+            <input type="password" name="password" class="form-control input-sm chat-input" placeholder="Password" />
+            </br>
+            <div class="wrapper2">
+
+
+                <span class="group-btn">
+
+                    <button class="btn btn-danger btn-md" type="submit">
+                        Iniciar sesi&oacute;n <i class="fa fa-sign-in"></i>
+                    </button>
+                </span>
+            </div>
+
+            <br />
+
+            @if (!string.IsNullOrEmpty(Model.Mensaje))
+            {
+                <div class="alert alert-danger">
+                    @Model.Mensaje
+                </div>
+            }
+
+        </div>
+
+
+
+        </div>
+
+</form>

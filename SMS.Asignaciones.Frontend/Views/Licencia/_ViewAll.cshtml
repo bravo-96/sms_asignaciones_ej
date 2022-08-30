@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SMS.Asignaciones.Models.Licencia>
+
+
+<div class="sombra-instructivo2">
+    <table id="tLicencias" class="table table-bordered table-dark table-sm table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th style="width:200px;">
+                    Colaborador
+                </th>
+                <th>
+                    Licencia
+                </th>
+                <th>
+                    Desde
+                </th>
+                <th>
+                    Hasta
+                </th>
+                <th style="width:120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="vertical-align: middle;">
+                    <b>@item.Colaborador.Apellido</b>, @item.Colaborador.Nombre
+                </td>
+                <td style="vertical-align: middle;">
+                    @item.TipoLicencia.Descripcion
+                </td>
+                <td style="vertical-align: middle;">
+                    @item.Desde.ToShortDateString()
+                </td>
+                <td style="vertical-align: middle;">
+                    @item.Hasta.ToShortDateString()
+                </td>
+
+                <td style="text-align:center;">
+                    <a style="cursor:pointer;" onclick="showInPopup('@Url.Action("_CreateOrEdit","Licencia",new {id=@item.Id},Context.Request.Scheme)','Modificar Licencia','Anio')" class="btn btn-sm btn-light text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar"><i class="fa fa-pencil text-dark"></i></a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                            <i class="fa fa-trash text-white"></i>
+                        </button>
+                    </form>
+                </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+        $("#tLicencias").DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando  _END_ / _TOTAL_ registros",
+                "sInfoEmpty": "Sin datos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+            "pagingType": "numbers"
+        });
+
+
+
+    });
+</script>
