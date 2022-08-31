@@ -26,15 +26,15 @@ namespace SMS.Asignaciones.Frontend.Controllers
         private readonly AsignacionesDbContext _context;
         private readonly IWebHostEnvironment _host;
 
-        public HomeController(ILogger<HomeController> logger, AsignacionesDbContext context, IWebHostEnvironment host)
+        public HomeController( ILogger<HomeController> logger, AsignacionesDbContext context, IWebHostEnvironment host )
         {
             _logger = logger;
             _context = context;
             _host = host;
-        }      
+        }
 
 
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Index()
         {
             DashboardViewModel model = new DashboardViewModel();
@@ -47,18 +47,18 @@ namespace SMS.Asignaciones.Frontend.Controllers
             DateTime date = DateTime.Now;
             DateTime oPrimerDiaDelMes = new DateTime(date.Year, date.Month, 1);
             DateTime oUltimoDiaDelMes = oPrimerDiaDelMes.Date.AddMonths(1).AddDays(-1);
-            int diasLaborales = int.Parse((Helper.GetBusinessDays(oPrimerDiaDelMes, oUltimoDiaDelMes) - diasFeriados).ToString());
+            int diasLaborales = int.Parse(( Helper.GetBusinessDays(oPrimerDiaDelMes, oUltimoDiaDelMes) - diasFeriados ).ToString());
 
             model.Feriados = diasFeriados;
             model.DiasLaborales = int.Parse(diasLaborales.ToString());
             model.HorasMes = diasLaborales * 8;
             model.MesActual = Helper.GetNombreMes(DateTime.Now.Month);
 
-            int id = int.Parse(((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.Where(x => x.Type == "Id").FirstOrDefault().Value);
-            var colaborador = await _context.Colaborador.Include(x => x.Equipo).Include(x => x.Rol).Where(x => x.Id == id).FirstOrDefaultAsync();
+            //int id = int.Parse(( (System.Security.Claims.ClaimsIdentity)User.Identity ).Claims.Where(x => x.Type == "Id").FirstOrDefault().Value);
+            //var colaborador = await _context.Colaborador.Include(x => x.Equipo).Include(x => x.Rol).Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            model.Rol = colaborador.Rol.Nombre;
-            model.Equipo = colaborador.Equipo.Nombre;
+            //model.Rol = colaborador.Rol.Nombre;
+            //model.Equipo = colaborador.Equipo.Nombre;
 
             var miembros = await _context.Colaborador.ToListAsync();
 
@@ -80,6 +80,7 @@ namespace SMS.Asignaciones.Frontend.Controllers
             int horasCargadas = await _context.Asignacion.Where(x => x.Mes == mesActual && x.Anio == anioActual && ids.Contains(x.ColaboradorId)).SumAsync(x => x.Horas);
             model.HorasPendientesCarga = pendientesDeCarga - horasCargadas;
 
+
             return View(model);
         }
 
@@ -91,7 +92,7 @@ namespace SMS.Asignaciones.Frontend.Controllers
         {
             ModificaDatosViewModel model = new ModificaDatosViewModel();
 
-            int id = int.Parse(((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.Where(x => x.Type == "Id").FirstOrDefault().Value);
+            int id = int.Parse(( (System.Security.Claims.ClaimsIdentity)User.Identity ).Claims.Where(x => x.Type == "Id").FirstOrDefault().Value);
             var colaborador = await _context.Colaborador.Include(x => x.Equipo).Include(x => x.Rol).Where(x => x.Id == id).FirstOrDefaultAsync();
 
             model.ColaboradorId = id;
@@ -102,9 +103,9 @@ namespace SMS.Asignaciones.Frontend.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModificaDatos(int id, [Bind("ColaboradorId,NewPassword,ConfirmaNewPassword,FotoActual")] ModificaDatosViewModel model)
+        public async Task<IActionResult> ModificaDatos( int id, [Bind("ColaboradorId,NewPassword,ConfirmaNewPassword,FotoActual")] ModificaDatosViewModel model )
         {
-            if (ModelState.IsValid)
+            if( ModelState.IsValid )
             {
                 try
                 {
@@ -112,9 +113,9 @@ namespace SMS.Asignaciones.Frontend.Controllers
 
                     //model.Foto = await System.IO.File.ReadAllBytesAsync(avatar);
 
-                    bool valorEnUso = (model.NewPassword != model.ConfirmaNewPassword);
+                    bool valorEnUso = ( model.NewPassword != model.ConfirmaNewPassword );
 
-                    if (valorEnUso)
+                    if( valorEnUso )
                     {
                         return Json(new { isValid = false, valorEnUso = true, html = Helper.RenderRazorViewToString(this, "_ModificaDatos", model) });
                     }
@@ -124,9 +125,9 @@ namespace SMS.Asignaciones.Frontend.Controllers
                     _context.Entry(colaborador).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch( DbUpdateConcurrencyException )
                 {
-                     throw; 
+                    throw;
                 }
 
                 return Json(new { isValid = true });
@@ -163,9 +164,9 @@ namespace SMS.Asignaciones.Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password, string ReturnUrl)
+        public async Task<IActionResult> Login( string email, string password, string ReturnUrl )
         {
-            if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if( string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) )
             {
                 LoginMessageViewModel model = new LoginMessageViewModel();
                 model.Mensaje = "Campos obligatorios!";
@@ -174,7 +175,7 @@ namespace SMS.Asignaciones.Frontend.Controllers
 
             var colaborador = await _context.Colaborador.Include(x => x.Rol).Where(x => x.Email.ToLower() == email.ToLower()).FirstOrDefaultAsync();
 
-            if(colaborador == null)
+            if( colaborador == null )
             {
                 LoginMessageViewModel model = new LoginMessageViewModel();
                 model.Mensaje = "No tiene acceso!";
@@ -184,7 +185,7 @@ namespace SMS.Asignaciones.Frontend.Controllers
 
             bool valido = HelperCryptography.CompareEncryptPassword(password, colaborador.Password) && colaborador.Rol.Nombre != "Sin acceso";
 
-            if (valido)
+            if( valido )
             {
                 var claims = new List<Claim>
                 {
@@ -193,7 +194,7 @@ namespace SMS.Asignaciones.Frontend.Controllers
                     new Claim(ClaimTypes.Role, colaborador.Rol.Nombre),
                     new Claim("Id", colaborador.Id.ToString())
                 };
-                
+
                 var claimsIdentity = new ClaimsIdentity(claims, "login");
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

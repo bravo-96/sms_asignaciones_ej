@@ -31,13 +31,13 @@ namespace SMS.Asignaciones.Frontend
             services.AddDbContext<AsignacionesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SMSAsignaciones"),
                   b => b.MigrationsAssembly("SMS.Asignaciones.DataAccess")));
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(o =>
-                {
-                    o.LoginPath = "/Home/Login";
-                    o.AccessDeniedPath = "/Home/AccessDenied";  
-                    o.SlidingExpiration = true;
-                });
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(o =>
+            //    {
+            //        o.LoginPath = "/Home/Login";
+            //        o.AccessDeniedPath = "/Home/AccessDenied";  
+            //        o.SlidingExpiration = true;
+            //    });
 
         }
 
@@ -59,8 +59,8 @@ namespace SMS.Asignaciones.Frontend
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

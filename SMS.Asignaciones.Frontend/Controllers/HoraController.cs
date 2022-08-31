@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SMS.Asignaciones.Frontend.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HoraController : Controller
     {
         private readonly AsignacionesDbContext _context;

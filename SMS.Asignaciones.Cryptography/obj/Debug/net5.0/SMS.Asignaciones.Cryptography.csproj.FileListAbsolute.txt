@@ -10,3 +10,15 @@ C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net
 C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.dll
 C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\ref\SMS.Asignaciones.Cryptography.dll
 C:\SMS.Asignaciones\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.pdb
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\bin\Debug\net5.0\SMS.Asignaciones.Cryptography.deps.json
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\bin\Debug\net5.0\SMS.Asignaciones.Cryptography.dll
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\bin\Debug\net5.0\SMS.Asignaciones.Cryptography.pdb
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.csproj.AssemblyReference.cache
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.AssemblyInfoInputs.cache
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.AssemblyInfo.cs
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.csproj.CoreCompileInputs.cache
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.dll
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\refint\SMS.Asignaciones.Cryptography.dll
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\SMS.Asignaciones.Cryptography.pdb
+C:\Users\josePC\Desktop\SMS.Asignaciones\SMS.Asignaciones.Cryptography\obj\Debug\net5.0\ref\SMS.Asignaciones.Cryptography.dll

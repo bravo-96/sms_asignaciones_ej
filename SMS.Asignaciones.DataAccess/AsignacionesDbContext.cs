@@ -25,10 +25,11 @@ namespace SMS.Asignaciones.DataAccess
             base.OnModelCreating(builder);
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
         //{
-        //    optionsBuilder.UseSqlServer(@"Data Source = localhost; Initial Catalog = SMSAsignaciones; Integrated Security = true");
+        //    //optionsBuilder.UseSqlServer(@"Data Source = localhost; Initial Catalog = SMSAsignaciones; Integrated Security = true");
         //    //optionsBuilder.UseSqlServer(@"Server=sbadesa017;Database=SMSAsignaciones;User Id = sadesa; Password=sadesa123");
+        //    optionsBuilder.UseSqlServer(@"Server=.; Database=SMS_Asignaciones; Trusted_Connection=True"); // DBLOCAL-PC-CASA
         //    //comentar OnConfiguring  cuando  se configure en BASE del constructor
         //}
 

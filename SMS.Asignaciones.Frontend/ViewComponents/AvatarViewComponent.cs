@@ -20,10 +20,10 @@ namespace SMS.Asignaciones.Frontend.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            int id = int.Parse(((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.Where(x => x.Type == "Id").FirstOrDefault().Value);
+            //int id = int.Parse(((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.Where(x => x.Type == "Id").FirstOrDefault().Value);
 
-            var colaborador = await _context.Colaborador.FindAsync(id);
-            ViewData["Foto"] = colaborador.Foto;
+            //var colaborador = await _context.Colaborador.FindAsync(id);
+            //ViewData["Foto"] = colaborador.Foto;
 
             return View("_ViewAvatar");
         }

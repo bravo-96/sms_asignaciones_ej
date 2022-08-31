@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SMS.Asignaciones.Frontend.Controllers
 {
-    [Authorize(Roles = "Operaciones,HRBP,Administración")]
+    //[Authorize(Roles = "Operaciones,HRBP,Administración")]
     public class FeriadoController : Controller
     {
         private readonly AsignacionesDbContext _context;

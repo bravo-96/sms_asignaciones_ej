@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SMS.Asignaciones.Frontend.Controllers
 {
-    [Authorize(Roles = "Operaciones,HRBP,Administración,Líder")]
+    //[Authorize(Roles = "Operaciones,HRBP,Administración,Líder")]
     public class AsignacionController : Controller
     {
         private readonly AsignacionesDbContext _context;
